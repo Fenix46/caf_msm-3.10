@@ -45,7 +45,6 @@
 #include <linux/of.h>
 
 #include <mach/msm_xo.h>
-#include <mach/msm_iomap.h>
 #include <linux/debugfs.h>
 #include <mach/rpm-regulator.h>
 

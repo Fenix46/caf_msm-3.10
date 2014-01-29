@@ -27,7 +27,7 @@
 #include <asm/current.h>
 #include <mach/restart.h>
 #ifdef CONFIG_DIAG_OVER_USB
-#include <mach/usbdiag.h>
+#include <linux/usb/usbdiag.h>
 #endif
 #include "diagchar_hdlc.h"
 #include "diagmem.h"
