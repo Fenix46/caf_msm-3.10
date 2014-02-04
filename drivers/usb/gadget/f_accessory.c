@@ -714,7 +714,7 @@ static ssize_t acc_write(struct file *fp, const char __user *buf,
 	if (req)
 		req_put(dev, &dev->tx_idle, req);
 
-	pr_debug("acc_write returning %zd\n", r);
+	pr_debug("acc_write returning %d\n", r);
 	return r;
 }
 
