@@ -3112,14 +3112,6 @@ static irqreturn_t dwc3_thread_interrupt(int irq, void *_dwc)
 
 			event.raw = *(u32 *) (evt->buf + evt->lpos);
 
-			/* Core registers may not be accessible in LPM */
-			if (pm_runtime_suspended(dwc->dev)) {
-				dev_warn(dwc->dev, "%s: event (0x%x, count %d) while suspended\n",
-						__func__, event.raw,
-						evt->count);
-				break;
-			}
-
 			dwc3_process_event_entry(dwc, &event);
 
 			if (dwc->err_evt_seen) {
@@ -3228,6 +3220,7 @@ static irqreturn_t dwc3_interrupt(int irq, void *_dwc)
 	if (ret == IRQ_WAKE_THREAD) {
 		disable_irq_nosync(irq);
 		tasklet_schedule(&dwc->bh);
+		pm_runtime_get(dwc->dev);
 	}
 	return IRQ_HANDLED;
 }
