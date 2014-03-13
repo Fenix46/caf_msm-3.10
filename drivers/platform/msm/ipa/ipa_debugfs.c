@@ -722,6 +722,7 @@ static ssize_t ipa_read_stats(struct file *file, char __user *ubuf,
 			"stat_compl=%u\n"
 			"lan_aggr_close=%u\n"
 			"wan_aggr_close=%u\n"
+			"act_clnt=%u\n"
 			"con_clnt_bmap=0x%x\n",
 			ipa_ctx->stats.tx_sw_pkts,
 			ipa_ctx->stats.tx_hw_pkts,
@@ -730,6 +731,7 @@ static ssize_t ipa_read_stats(struct file *file, char __user *ubuf,
 			ipa_ctx->stats.stat_compl,
 			ipa_ctx->stats.aggr_close,
 			ipa_ctx->stats.wan_aggr_close,
+			ipa_ctx->ipa_active_clients,
 			connect);
 		cnt += nbytes;
 
