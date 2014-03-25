@@ -359,12 +359,6 @@ int ecm_ipa_connect(u32 usb_to_ipa_hdl, u32 ipa_to_usb_hdl,
 	ECM_IPA_DEBUG("usb_to_ipa_hdl = %d, ipa_to_usb_hdl = %d, priv=0x%p\n",
 					usb_to_ipa_hdl, ipa_to_usb_hdl, priv);
 
-	ecm_msg = kzalloc(sizeof(struct ipa_ecm_msg), GFP_KERNEL);
-	if (!ecm_msg) {
-		ECM_IPA_ERROR("can't alloc msg mem\n");
-		return -ENOMEM;
-	}
-
 	next_state = ecm_ipa_next_state(ecm_ipa_ctx->state, ECM_IPA_CONNECT);
 	if (next_state == ECM_IPA_INVALID) {
 		ECM_IPA_ERROR("can't call connect before calling initialize\n");
@@ -385,10 +379,20 @@ int ecm_ipa_connect(u32 usb_to_ipa_hdl, u32 ipa_to_usb_hdl,
 	}
 	ecm_ipa_ctx->ipa_to_usb_hdl = ipa_to_usb_hdl;
 	ecm_ipa_ctx->usb_to_ipa_hdl = usb_to_ipa_hdl;
-	ecm_ipa_ep_registers_cfg(usb_to_ipa_hdl, ipa_to_usb_hdl);
+	retval = ecm_ipa_ep_registers_cfg(usb_to_ipa_hdl, ipa_to_usb_hdl);
+	if (retval) {
+		ECM_IPA_ERROR("fail on ep cfg\n");
+		return retval;
+	}
 	ECM_IPA_DEBUG("end-point configured\n");
 
 	netif_carrier_on(ecm_ipa_ctx->net);
+
+	ecm_msg = kzalloc(sizeof(struct ipa_ecm_msg), GFP_KERNEL);
+	if (!ecm_msg) {
+		ECM_IPA_ERROR("can't alloc msg mem\n");
+		return -ENOMEM;
+	}
 
 	memset(&msg_meta, 0, sizeof(struct ipa_msg_meta));
 	msg_meta.msg_type = ECM_CONNECT;
@@ -401,7 +405,7 @@ int ecm_ipa_connect(u32 usb_to_ipa_hdl, u32 ipa_to_usb_hdl,
 	if (retval) {
 		ECM_IPA_ERROR("fail to send ECM_CONNECT message\n");
 		kfree(ecm_msg);
-		return -EPERM;
+		return retval;
 	}
 
 	if (!netif_carrier_ok(ecm_ipa_ctx->net)) {
@@ -639,12 +643,6 @@ int ecm_ipa_disconnect(void *priv)
 	NULL_CHECK(ecm_ipa_ctx);
 	ECM_IPA_DEBUG("priv=0x%p\n", priv);
 
-	ecm_msg = kzalloc(sizeof(struct ipa_ecm_msg), GFP_KERNEL);
-	if (!ecm_msg) {
-		ECM_IPA_ERROR("can't alloc msg mem\n");
-		return -ENOMEM;
-	}
-
 	next_state = ecm_ipa_next_state(ecm_ipa_ctx->state, ECM_IPA_DISCONNECT);
 	if (next_state == ECM_IPA_INVALID) {
 		ECM_IPA_ERROR("can't disconnect before connect\n");
@@ -655,6 +653,12 @@ int ecm_ipa_disconnect(void *priv)
 
 	netif_carrier_off(ecm_ipa_ctx->net);
 	ECM_IPA_DEBUG("carrier_off notifcation was sent\n");
+
+	ecm_msg = kzalloc(sizeof(struct ipa_ecm_msg), GFP_KERNEL);
+	if (!ecm_msg) {
+		ECM_IPA_ERROR("can't alloc msg mem\n");
+		return -ENOMEM;
+	}
 
 	memset(&msg_meta, 0, sizeof(struct ipa_msg_meta));
 	msg_meta.msg_type = ECM_DISCONNECT;
@@ -827,7 +831,8 @@ static void ecm_ipa_rules_destroy(struct ecm_ipa_dev *ecm_ipa_ctx)
 	ipv6->hdl = ecm_ipa_ctx->eth_ipv6_hdr_hdl;
 	result = ipa_del_hdr(del_hdr);
 	if (result || ipv4->status || ipv6->status)
-		ECM_IPA_ERROR("ipa_del_hdr failed");
+		ECM_IPA_ERROR("ipa_del_hdr failed\n");
+	kfree(del_hdr);
 }
 
 /* ecm_ipa_register_properties() - set Tx/Rx properties for ipacm
