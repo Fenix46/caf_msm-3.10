@@ -455,8 +455,7 @@ static int msm_hsphy_set_suspend(struct usb_phy *uphy, int suspend)
 				msm_usb_write_readback(phy->base,
 							HS_PHY_CTRL_REG(i),
 							(OTGDISABLE0 |
-							USB2_SUSPEND_N_SEL |
-							USB2_SUSPEND_N),
+							USB2_SUSPEND_N_SEL),
 							0);
 			}
 		}
