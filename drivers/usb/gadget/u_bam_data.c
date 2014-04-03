@@ -598,7 +598,7 @@ static void bam2bam_data_connect_work(struct work_struct *w)
 	struct teth_bridge_init_params teth_bridge_params;
 	struct bam_data_ch_info *d = &port->data_ch;
 	struct data_port *d_port = port->port_usb;
-	struct usb_gadget *gadget = d_port->cdev->gadget;
+	struct usb_gadget *gadget = NULL;
 	u32 sps_params;
 	int ret;
 
@@ -610,7 +610,18 @@ static void bam2bam_data_connect_work(struct work_struct *w)
 		return;
 	}
 
+	if (d_port && d_port->cdev)
+		gadget = d_port->cdev->gadget;
+
+	if (!gadget) {
+		pr_err("%s: NULL gadget\n", __func__);
+		return;
+	}
+
 	if (d->trans == USB_GADGET_XPORT_BAM2BAM_IPA) {
+
+		d->ipa_params.usb_connection_speed = gadget->speed;
+
 		if (usb_bam_get_pipe_type(d->ipa_params.src_idx,
 				&d->src_pipe_type) ||
 			usb_bam_get_pipe_type(d->ipa_params.dst_idx,
