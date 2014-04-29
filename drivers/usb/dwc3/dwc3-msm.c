@@ -3050,6 +3050,7 @@ static int dwc3_msm_remove(struct platform_device *pdev)
 	device_for_each_child(&pdev->dev, NULL, dwc3_msm_remove_children);
 
 	pm_runtime_disable(mdwc->dev);
+	pm_runtime_set_suspended(mdwc->dev);
 	pm_runtime_barrier(mdwc->dev);
 	pm_runtime_put_sync(mdwc->dev);
 	pm_runtime_set_suspended(mdwc->dev);
