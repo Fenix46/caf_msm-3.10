@@ -881,6 +881,7 @@ struct dwc3 {
 	bool			hsphy_auto_suspend_disable;
 	bool			enable_suspend_event;
 	bool			usb3_u1u2_disable;
+	u8			hird_thresh;
 	struct dwc3_gadget_events	dbg_gadget_events;
 
 	/* offload IRQ handling to tasklet */
