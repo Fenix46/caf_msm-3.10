@@ -129,7 +129,8 @@ struct mxhci_hsic_hcd {
 	unsigned int		in_lpm;
 	unsigned int		pm_usage_cnt;
 	wait_queue_head_t	phy_in_lpm_wq;
-
+	struct pinctrl *hsic_pinctrl;
+	
 	uint32_t		wakeup_int_cnt;
 	uint32_t		pwr_evt_irq_inlpm;
 	struct tasklet_struct	bh;
