@@ -17,6 +17,7 @@
 #include <linux/msm-bus.h>
 #include <linux/delay.h>
 #include <linux/debugfs.h>
+#include <linux/pci.h>
 
 #include "mhi_sys.h"
 #include "mhi.h"

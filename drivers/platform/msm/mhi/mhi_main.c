@@ -21,6 +21,7 @@
 #include <linux/slab.h>
 #include <linux/interrupt.h>
 #include <linux/completion.h>
+#include <linux/pci.h>
 
 #include "mhi_sys.h"
 #include "mhi.h"

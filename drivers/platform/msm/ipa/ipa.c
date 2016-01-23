@@ -178,20 +178,6 @@ struct ipa_ioc_nat_alloc_mem32 {
 };
 #endif
 
-/**
- * struct ipa_ioc_nat_alloc_mem32 - nat table memory allocation
- * properties
- * @dev_name: input parameter, the name of table
- * @size: input parameter, size of table in bytes
- * @offset: output parameter, offset into page in case of system memory
- */
-struct ipa_ioc_nat_alloc_mem32 {
-	char dev_name[IPA_RESOURCE_NAME_MAX];
-	compat_size_t size;
-	compat_off_t offset;
-};
-#endif
-
 static void ipa_start_tag_process(struct work_struct *work);
 static DECLARE_WORK(ipa_tag_work, ipa_start_tag_process);
 

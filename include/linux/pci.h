@@ -1414,6 +1414,16 @@ static inline int pci_request_regions(struct pci_dev *dev, const char *res_name)
 static inline void pci_release_regions(struct pci_dev *dev)
 { }
 
+static inline int pci_request_region(struct pci_dev *dev, int a, const char *res_name)
+{
+	return 0;
+}
+
+static inline int pci_request_region_exclusive(struct pci_dev *dev, int a, const char *res_name)
+{
+	return 0;
+}
+
 #define pci_dma_burst_advice(pdev, strat, strategy_parameter) do { } while (0)
 
 static inline void pci_block_cfg_access(struct pci_dev *dev)

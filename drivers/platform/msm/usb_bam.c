@@ -327,7 +327,7 @@ static void usb_bam_set_inactivity_timer(enum usb_ctrl bam)
 
 static int connect_pipe(u8 idx, u32 *usb_pipe_idx)
 {
-	int ret
+	int ret;
 	enum usb_ctrl bam;
 	struct usb_bam_sps_type usb_bam_sps = ctx.usb_bam_sps;
 	struct sps_pipe **pipe = &(usb_bam_sps.sps_pipes[idx]);
