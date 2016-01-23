@@ -779,9 +779,6 @@ static const struct usb_device_id vidpids[] = {
 	{ USB_DEVICE_INTERFACE_NUMBER(0x05c6, 0x90A4, 8),
 	.driver_info = (unsigned long)&rmnet_info,
 	},
-	{ USB_DEVICE_INTERFACE_NUMBER(0x05c6, 0x90A4, 8), /*mux over hsic mdm*/
-	.driver_info = (unsigned long)&rmnet_info,
-	},
 
 	{ }, /* Terminating entry */
 };
