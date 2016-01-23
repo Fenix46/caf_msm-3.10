@@ -99,7 +99,8 @@ struct bam_data_ch_info {
 	enum usb_bam_pipe_type	src_pipe_type;
 	enum usb_bam_pipe_type	dst_pipe_type;
 	unsigned int		pending_with_bam;
-
+	int rx_buffer_size;
+	
 	unsigned int		rx_flow_control_disable;
 	unsigned int		rx_flow_control_enable;
 	unsigned int		rx_flow_control_triggered;

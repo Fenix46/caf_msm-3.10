@@ -1086,14 +1086,6 @@ static int msm_otg_suspend(struct msm_otg *motg)
 		if (motg->xo_clk) {
 			clk_disable_unprepare(motg->xo_clk);
 			motg->lpm_flags |= XO_SHUTDOWN;
-		} else {
-			ret = msm_xo_mode_vote(motg->xo_handle,
-							MSM_XO_MODE_OFF);
-			if (ret)
-				dev_err(phy->dev, "%s fail to devote XO %d\n",
-								 __func__, ret);
-			else
-				motg->lpm_flags |= XO_SHUTDOWN;
 		}
 	}
 
@@ -4892,6 +4884,7 @@ free_config_vddcx:
 devote_xo_handle:
 	clk_disable_unprepare(motg->pclk);
 	if (motg->xo_clk)
+		clk_disable_unprepare(motg->xo_clk);
 free_xo_handle:
 	if (motg->xo_clk) {
 		clk_put(motg->xo_clk);
