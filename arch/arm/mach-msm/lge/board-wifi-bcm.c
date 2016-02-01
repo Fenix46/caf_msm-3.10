@@ -447,8 +447,8 @@ random_mac:
 		return 0;
 	}
 
-	/*srandom32((uint)jiffies);*/
-	rand_mac = next_pseudo_random32(jiffies);
+	prandom_seed((uint)jiffies);
+	rand_mac = prandom_u32();
 	buf[0] = 0x00;
 	buf[1] = 0x90;
 	buf[2] = 0x4c;
