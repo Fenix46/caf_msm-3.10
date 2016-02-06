@@ -86,10 +86,10 @@ static struct of_dev_auxdata msm8974_auxdata_lookup[] __initdata = {
 	{}
 };
 
-static void __init msm8974_early_memory(void)
+/*static void __init msm8974_early_memory(void)
 {
 	of_scan_flat_dt(dt_scan_for_memory_hole, NULL);
-}
+}*/
 
 void __init msm_8974_reserve(void)
 {
@@ -153,10 +153,10 @@ void __init msm8974_init(void)
 	msm8974_add_drivers();
 }
 
-void __init msm8974_init_very_early(void)
+/*void __init msm8974_init_very_early(void)
 {
 	msm8974_early_memory();
-}
+}*/
 
 static const char *const msm8974_dt_match[] __initconst = {
 	"qcom,msm8974",
