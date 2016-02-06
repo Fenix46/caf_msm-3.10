@@ -305,9 +305,9 @@
 	};
 };
 
-&sdcc2 {
+&sdhc_2 {
 	#address-cells = <0>;
-	interrupt-parent = <&sdcc2>;
+	interrupt-parent = <&sdhc_2>;
 	interrupts = <0 1 2>;
 	#interrupt-cells = <1>;
 	interrupt-map-mask = <0xffffffff>;
@@ -325,8 +325,8 @@
 	qcom,bus-width = <4>;
 
 	vdd-supply = <&pm8941_l11>;
-	qcom,sdcc-sup-voltages = <1800 2950>;
-	qcom,sdcc-nonremovable = <1>;
+	qcom,sdhc-sup-voltages = <1800 2950>;
+	qcom,sdhc-nonremovable = <1>;
 	qcom,sup-voltages = <1800 2950>;
 	qcom,nonremovable;
 	*/
@@ -339,7 +339,7 @@
 	interrupt-names = "core_irq", "bam_irq", "wlan_oob_irq";
 	qcom,bus-width = <4>;
 
-	qcom,sdcc-sup-voltages = <1800 2950>;
+	qcom,sdhc-sup-voltages = <1800 2950>;
 	qcom,sup-voltages = <1800 2950>;
 	qcom,wifi-control-func;
 	qcom,not-use-vdd;

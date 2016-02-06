@@ -33,8 +33,8 @@
 #include <mach/gpiomux.h>
 #include <mach/msm_iomap.h>
 #include <mach/msm_memtypes.h>
-#include <mach/msm_smd.h>
-#include <mach/restart.h>
+#include <soc/qcom/smd.h>
+#include <soc/qcom/restart.h>
 #include <soc/qcom/rpm-smd.h>
 #include <soc/qcom/socinfo.h>
 #include <soc/qcom/smem.h>
@@ -168,7 +168,7 @@ DT_MACHINE_START(MSM8974_DT, "Qualcomm MSM 8974 HAMMERHEAD (Flattened Device Tre
 	.init_machine	= msm8974_init,
 	.dt_compat		= msm8974_dt_match,
 	.reserve		= msm_8974_reserve,
-	.init_very_early= msm8974_init_very_early,
-	.restart		= msm_restart,
+	/*.init_very_early= msm8974_init_very_early,*/
+	/*.restart		= msm_restart,*/
 	.smp			= &msm8974_smp_ops,
 MACHINE_END

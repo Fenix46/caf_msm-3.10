@@ -69,7 +69,7 @@
 	};
 };
 
-&sdcc2 {
+&sdhc_2 {
 	interrupt-map = <0 &intc 0 125 0
 		1 &intc 0 220 0
 		2 &msmgpio 74 0x3>;
