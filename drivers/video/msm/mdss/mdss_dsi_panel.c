@@ -31,7 +31,7 @@
 
 DEFINE_LED_TRIGGER(bl_led_trigger);
 
-#if defined(CONFIG_BACKLIGHT_LM3630)
+#if defined(CONFIG_BACKLIGHT_LM3630) && defined(CONFIG_MACH_LGE)
 extern void lm3630_lcd_backlight_set_level(int level);
 #endif
 
@@ -598,7 +598,7 @@ static void mdss_dsi_panel_bl_ctrl(struct mdss_panel_data *pdata,
 
 	switch (ctrl_pdata->bklt_ctrl) {
 	case BL_WLED:
-#if defined(CONFIG_BACKLIGHT_LM3630)
+#if defined(CONFIG_BACKLIGHT_LM3630) && defined(CONFIG_MACH_LGE)
 		lm3630_lcd_backlight_set_level(bl_level);
 #else
 		led_trigger_event(bl_led_trigger, bl_level);
