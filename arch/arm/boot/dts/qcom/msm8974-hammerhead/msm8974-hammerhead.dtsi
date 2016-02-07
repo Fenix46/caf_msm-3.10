@@ -148,6 +148,10 @@
 	qcom,bam_dmux@fc834000 {
 		qcom,fast-shutdown;
 	};
+
+	qcom,mss@fc880000 {
+		qcom,mba-load-to-phys;
+	};
 };
 
 &spmi_bus {
