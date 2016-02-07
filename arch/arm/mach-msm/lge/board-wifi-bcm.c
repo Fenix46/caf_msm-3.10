@@ -24,12 +24,12 @@
 #include <linux/if.h>
 #include <linux/random.h>
 #include <linux/netdevice.h>
-#include <linux/partialresume.h>
 #include <linux/skbuff.h>
 #include <linux/spinlock.h>
 #include <linux/wlan_plat.h>
 #include <linux/fs.h>
 #ifdef CONFIG_PARTIALRESUME
+#include <linux/partialresume.h>
 #include <linux/lcd_notify.h>
 #endif
 #include <asm/io.h>
@@ -468,8 +468,8 @@ random_mac:
 		return 0;
 	}
 
-	srandom32((uint)jiffies);
-	rand_mac = random32();
+	prandom_seed((uint)jiffies);
+	rand_mac = prandom_u32();
 	buf[0] = 0x00;
 	buf[1] = 0x90;
 	buf[2] = 0x4c;
@@ -645,7 +645,7 @@ static struct cntry_locales_custom wifi_translate_custom_table[] = {
 	{"US", "Q2", 57},
 };
 
-static void *bcm_wifi_get_country_code(char *ccode)
+static void *bcm_wifi_get_country_code(char *ccode, u32 flags)
 {
 	int size, i;
 	static struct cntry_locales_custom country_code;
