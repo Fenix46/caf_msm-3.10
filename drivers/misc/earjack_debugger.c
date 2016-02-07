@@ -29,7 +29,7 @@
 #include <linux/pm.h>
 #include <linux/of_gpio.h>
 
-#include <mach/msm_serial_hs_lite.h>
+#include <linux/platform_data/qcom-serial_hs_lite.h>
 
 struct earjack_debugger_device {
 	int gpio;
